@@ -1,0 +1,10 @@
+export default function AuraLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" width="64" height="64" aria-hidden="true">
+      <rect width="64" height="64" rx="18" fill="#f07b11" />
+      <path d="M12 51 27 13h10L24 51Z" fill="#f5f5f5" />
+      <path d="M27 13h10l15 38H40Z" fill="#fabd63" />
+      <path d="M23 37h18l3 8H20Z" fill="#f5f5f5" />
+    </svg>
+  );
+}
