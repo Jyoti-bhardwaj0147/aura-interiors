@@ -134,11 +134,11 @@ function Reveal({
   const reduced = useReducedMotion();
   return (
     <motion.div
-      className={className}
-      initial={reduced ? false : { y: 28 }}
+      className={`${className} motion-reduce:!transform-none`}
+      initial={{ y: 28 }}
       whileInView={{ y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
-      transition={{ duration: 0.7 }}
+      transition={{ duration: reduced ? 0 : 0.7 }}
     >
       {children}
     </motion.div>
@@ -301,9 +301,7 @@ export default function Home() {
           >
             SCROLL TO EXPLORE <ArrowDown size={17} />
           </a>
-          <span className="absolute right-[max(44px,calc((100vw-1360px)/2))] bottom-[34px] text-[11px] tracking-[.14em] max-[760px]:right-5">
-            01 / 05
-          </span>
+         
         </section>
 
         <section

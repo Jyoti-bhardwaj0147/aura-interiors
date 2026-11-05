@@ -31,9 +31,10 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     lenis.on('scroll', ScrollTrigger.update);
 
     // 4. Hook Lenis into GSAP's official animation frame ticker
-    gsap.ticker.add((time) => {
+    const updateScroll = (time: number) => {
       lenis.raf(time * 1000); // Convert seconds to milliseconds
-    });
+    };
+    gsap.ticker.add(updateScroll);
 
     // 5. Disable lag smoothing in GSAP for pixel-perfect tracking
     gsap.ticker.lagSmoothing(0);
@@ -41,9 +42,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     // Cleanup on unmount
     return () => {
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      lenisRef.current = null;
+      gsap.ticker.remove(updateScroll);
     };
   }, []);
 
