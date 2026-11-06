@@ -23,6 +23,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
+      anchors: true,
     });
 
     lenisRef.current = lenis;

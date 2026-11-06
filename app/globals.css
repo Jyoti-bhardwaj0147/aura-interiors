@@ -215,7 +215,7 @@ html {
 .aura-footer {
   background: #25221f;
   color: var(--color-aura-white);
-  padding: clamp(48px, 7vw, 96px) 0 24px;
+  padding: clamp(48px, 7vw, 80px) 0 24px;
 }
 .aura-footer-shell {
   width: calc(100% - 88px);

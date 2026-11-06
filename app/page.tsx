@@ -21,19 +21,13 @@ import {
 import { FormEvent, useEffect, useState } from "react";
 
 const img = {
-  hero: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1800&q=85",
-  studio:
-    "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=1200&q=85",
-  villa:
-    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=85",
-  apartment:
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85",
-  office:
-    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=1200&q=85",
-  residence:
-    "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=85",
-  detail:
-    "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=85",
+  hero: "/images/hero.jpg",
+  studio: "/images/studio.jpg",
+  villa: "/images/villa.jpg",
+  apartment: "/images/apartment.jpg",
+  office: "/images/office.jpg",
+  residence: "/images/residence.jpg",
+  detail: "/images/detail.jpg",
 };
 const projects = [
   {
@@ -153,10 +147,13 @@ function Label({
 }) {
   return (
     <p
-      className={`m-0 flex items-center gap-[14px] text-[11px] font-bold tracking-[.19em] text-orange [&>span]:h-px [&>span]:w-[26px] [&>span]:bg-current ${className}`}
+      className={`m-0 flex items-center gap-3 text-[10px] font-semibold uppercase leading-[1.6] tracking-[.24em] text-orange max-[560px]:gap-2.5 max-[560px]:text-[9px] max-[560px]:tracking-[.2em] ${className}`}
     >
-      <span />
-      {children}
+      <span aria-hidden="true" className="flex shrink-0 items-center gap-1.5">
+        <span className="h-px w-8 bg-current opacity-70 max-[560px]:w-6" />
+        <span className="h-1 w-1 rotate-45 border border-current" />
+      </span>
+      <span>{children}</span>
     </p>
   );
 }
@@ -257,16 +254,19 @@ export default function Home() {
       <InitialLoader />
       <Header links={links} />
       <main id="top">
-        <section className="relative flex h-[min(900px,100svh)] min-h-[650px] items-center text-white [&>img]:z-0 [&_h1]:mb-[30px] [&_h1]:max-w-[1000px] [&_h1]:font-display [&_h1]:text-[clamp(4.7rem,8.7vw,10.2rem)] [&_h1]:leading-[.94] [&_h1]:font-normal [&_h1]:tracking-[-.045em] max-[760px]:h-[88svh] max-[760px]:min-h-[680px] max-[760px]:[&_h1]:text-[clamp(4rem,12vw,6.5rem)] max-[560px]:min-h-[620px] max-[560px]:[&_h1]:text-[clamp(3.55rem,13vw,5rem)] max-[390px]:[&_h1]:text-[3.45rem]">
-          <Image
-            src={img.hero}
-            alt="Warm contemporary living room with sculptural furniture"
-            fill
-            priority
-            sizes="100vw"
-            unoptimized
-          />
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,12,10,.64)_0%,rgba(17,15,11,.29)_57%,rgba(17,15,11,.18)_100%),linear-gradient(0deg,#0004,transparent_28%)]" />
+        <section className="relative flex h-[min(900px,100svh)] min-h-[650px] items-center bg-cover bg-center text-white [&_h1]:mb-[30px] [&_h1]:max-w-[1000px] [&_h1]:font-display [&_h1]:text-[clamp(4.7rem,8.7vw,10.2rem)] [&_h1]:leading-[.94] [&_h1]:font-normal [&_h1]:tracking-[-.045em] max-[760px]:h-[88svh] max-[760px]:min-h-[680px] max-[760px]:[&_h1]:text-[clamp(4rem,12vw,6.5rem)] max-[560px]:min-h-[620px] max-[560px]:[&_h1]:text-[clamp(3.55rem,13vw,5rem)] max-[390px]:[&_h1]:text-[3.45rem]" style={{ backgroundImage: `url(${img.hero})` }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={img.hero}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+          >
+            <source src="/videos/hero.mp4" type="video/mp4" />
+          </video>
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(13,12,10,.44)_0%,rgba(17,15,11,.18)_57%,rgba(17,15,11,.1)_100%),linear-gradient(0deg,#0003,transparent_28%)]" />
           <div className="mx-auto w-[calc(100%-88px)] max-w-[1360px] max-[1050px]:w-[calc(100%-64px)] max-[760px]:w-[calc(100%-40px)] relative z-[1] pt-[70px] max-[760px]:pt-[60px]">
             <p className="mb-[25px] text-[11px] font-bold tracking-[.2em]">
               INTERIOR DESIGN & ARCHITECTURE STUDIO
@@ -280,26 +280,39 @@ export default function Home() {
               We create quietly remarkable interiors where every detail has a
               purpose, and every space tells a story.
             </p>
-            <div className="mt-[34px] flex items-center gap-[38px] max-[560px]:flex-col max-[560px]:items-start max-[560px]:gap-[25px]">
+            <div className="mt-[34px] flex flex-wrap items-center gap-3 max-[560px]:flex-col max-[560px]:items-stretch">
               <a
-                className="inline-flex min-h-[54px] rounded-[15px] cursor-pointer items-center justify-between gap-[42px] border-0 bg-orange px-[22px] py-4 text-[11px] font-bold uppercase tracking-[.12em] text-white transition-[background,transform] duration-250 hover:-translate-y-[2px] hover:bg-[#cf6408] disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0"
+                className="group inline-flex min-h-[56px] items-center justify-between gap-8 rounded-[15px] border border-white/20 bg-orange py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white shadow-[0_10px_24px_rgba(0,0,0,.16)] transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#cf6408] hover:shadow-[0_14px_28px_rgba(0,0,0,.2)] motion-reduce:transform-none motion-reduce:transition-none"
                 href="#projects"
               >
-                Explore our work <ArrowUpRight size={18} />
+                <span>Explore our work</span>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] bg-white/15 transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-white/25 motion-reduce:transform-none motion-reduce:transition-none">
+                  <ArrowUpRight size={18} strokeWidth={1.7} />
+                </span>
               </a>
               <a
-                className="inline-flex items-center gap-5 border-b border-white/60 pb-[9px] text-xs"
+                className="group inline-flex min-h-[56px] items-center justify-between gap-8 rounded-[15px] border border-white/65 bg-black/10 py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white backdrop-blur-sm transition-[background-color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-white hover:bg-white/15 motion-reduce:transform-none motion-reduce:transition-none"
                 href="#studio"
               >
-                Discover the studio <ArrowRight size={18} />
+                <span>Discover the studio</span>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] border border-white/35 transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-white/15 motion-reduce:transform-none motion-reduce:transition-none">
+                  <ArrowRight size={18} strokeWidth={1.7} />
+                </span>
               </a>
             </div>
           </div>
           <a
-            className="absolute bottom-8 left-[max(44px,calc((100vw-1360px)/2))] flex items-center gap-5 text-[10px] tracking-[.18em] max-[760px]:left-5 max-[560px]:text-[9px]"
+            className="group absolute bottom-6 left-1/2 z-[1] flex min-h-[74px] -translate-x-1/2 flex-col items-center justify-center gap-2 whitespace-nowrap rounded-[15px] px-5 py-2 text-[10px] font-bold tracking-[.18em] text-white transition-colors duration-300 hover:text-pastel max-[560px]:bottom-4 motion-reduce:transition-none"
             href="#studio"
           >
-            SCROLL TO EXPLORE <ArrowDown size={17} />
+            <span>SCROLL TO EXPLORE</span>
+            <motion.span
+              className="grid h-7 w-7 place-items-center rounded-full border border-white/60 transition-colors duration-300 group-hover:border-pastel motion-reduce:transition-none"
+              animate={reducedMotion ? undefined : { y: [0, 5, 0] }}
+              transition={reducedMotion ? undefined : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowDown size={16} strokeWidth={1.6} />
+            </motion.span>
           </a>
          
         </section>
@@ -730,12 +743,14 @@ export default function Home() {
                     </p>
                   )}
                   <button
-                    className="inline-flex min-h-[54px] rounded-[15px] cursor-pointer items-center justify-between gap-[42px] border-0 bg-orange px-[22px] py-4 text-[11px] font-bold uppercase tracking-[.12em] text-white transition-[background,transform] duration-250 hover:-translate-y-[2px] hover:bg-[#cf6408] disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0 mt-[26px] w-full"
+                    className="group mt-[26px] inline-flex min-h-[56px] w-full items-center justify-between gap-8 rounded-[15px] border border-[#d76709] bg-orange py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white shadow-[0_10px_24px_rgba(38,35,31,.12)] transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#cf6408] hover:shadow-[0_14px_28px_rgba(38,35,31,.16)] disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:bg-orange disabled:hover:shadow-[0_10px_24px_rgba(38,35,31,.12)] motion-reduce:transform-none motion-reduce:transition-none"
                     type="submit"
                     disabled={sending}
                   >
-                    {sending ? "Sending…" : "Send your inquiry"}{" "}
-                    <ArrowUpRight size={18} />
+                    <span>{sending ? "Sending…" : "Send your inquiry"}</span>
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] bg-white/15 transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-white/25 group-disabled:transform-none group-disabled:bg-white/15 motion-reduce:transform-none motion-reduce:transition-none">
+                      <ArrowUpRight size={18} strokeWidth={1.7} />
+                    </span>
                   </button>
                   <p className="mt-3 text-[11px] text-muted">
                     Your details are used only to respond to your inquiry.
@@ -780,9 +795,7 @@ export default function Home() {
                   {address || "Studio visits by appointment"}
                 </span>
               </div>
-              <p className="mt-10 text-[10px] tracking-[.17em] text-muted">
-                CONSULTATIONS · BY APPOINTMENT
-              </p>
+              
             </Reveal>
             <Reveal className="relative h-[400px] overflow-hidden rounded-[15px] bg-[#e4d7c6] max-[760px]:h-[320px] [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0 [&>a]:absolute [&>a]:right-3 [&>a]:bottom-3 [&>a]:flex [&>a]:items-center [&>a]:gap-2 [&>a]:bg-aura-white [&>a]:p-[11px] [&>a]:text-[11px]">
               {address ? (
@@ -807,7 +820,7 @@ export default function Home() {
                   <MapPin size={32} strokeWidth={1.2} />
                   <span>STUDIO LOCATION</span>
                   <p>
-                    Our map will appear here when the studio address is added.
+                   
                   </p>
                 </div>
               )}
