@@ -2,6 +2,7 @@
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import WhatWeDo, { services } from "../components/WhatWeDo";
 import Image from "next/image";
 import InitialLoader from "./initial-loader";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -58,23 +59,6 @@ const projects = [
     gallery: [img.office, img.detail, img.studio],
     copy: "A welcoming workspace with room for focus, collaboration, and new ideas.",
   },
-];
-const services = [
-  [
-    "Interior Design",
-    "Thoughtful, layered interiors that feel unmistakably yours.",
-  ],
-  ["Architecture", "Distinctive spaces shaped by form, function, and context."],
-  ["Space Planning", "Intelligent layouts that make every square foot matter."],
-  ["Renovation", "Fresh possibilities for spaces with stories to tell."],
-  [
-    "Furniture Design",
-    "Custom pieces made to belong beautifully in your space.",
-  ],
-  [
-    "Turnkey Solutions",
-    "One seamless journey from the first sketch to the final detail.",
-  ],
 ];
 const processSteps = [
   ["Consultation", "We listen, explore your vision, and understand the space."],
@@ -160,11 +144,14 @@ function Label({
 function More({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
-      className="inline-flex min-w-[170px] items-center justify-between gap-8 border-b border-ink pb-[11px] text-[11px] font-bold uppercase tracking-[.12em] transition-colors duration-250 hover:border-orange hover:text-orange"
+      className="group relative isolate inline-flex min-h-[56px] max-w-full items-center justify-between gap-8 overflow-hidden rounded-[15px] border border-ink/55 bg-transparent py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-ink transition-[color,background-color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-transparent hover:text-aura-white motion-reduce:transform-none motion-reduce:transition-none"
       href={href}
     >
-      {children}
-      <ArrowUpRight size={18} />
+      <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-orange via-[#f5a448] to-pastel opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 motion-reduce:transition-none" />
+      <span>{children}</span>
+      <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] border border-ink/35 bg-ink/5 transition-[background-color,border-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:border-transparent group-hover:bg-ink/10 motion-reduce:transform-none motion-reduce:transition-none">
+        <ArrowRight size={18} strokeWidth={1.7} />
+      </span>
     </a>
   );
 }
@@ -254,7 +241,7 @@ export default function Home() {
       <InitialLoader />
       <Header links={links} />
       <main id="top">
-        <section className="relative flex h-[min(900px,100svh)] min-h-[650px] items-center bg-cover bg-center text-white [&_h1]:mb-[30px] [&_h1]:max-w-[1000px] [&_h1]:font-display [&_h1]:text-[clamp(4.7rem,8.7vw,10.2rem)] [&_h1]:leading-[.94] [&_h1]:font-normal [&_h1]:tracking-[-.045em] max-[760px]:h-[88svh] max-[760px]:min-h-[680px] max-[760px]:[&_h1]:text-[clamp(4rem,12vw,6.5rem)] max-[560px]:min-h-[620px] max-[560px]:[&_h1]:text-[clamp(3.55rem,13vw,5rem)] max-[390px]:[&_h1]:text-[3.45rem]" style={{ backgroundImage: `url(${img.hero})` }}>
+        <section className="relative flex [box-shadow:rgba(50,50,93,0.25)_0px_13px_27px_-5px,rgba(0,0,0,0.3)_0px_8px_16px_-8px] h-[min(900px,100svh)] min-h-[650px] items-center bg-cover bg-center text-white [&_h1]:mb-[30px] [&_h1]:max-w-[1000px] [&_h1]:font-display [&_h1]:text-[clamp(4.7rem,8.7vw,10.2rem)] [&_h1]:leading-[.94] [&_h1]:font-normal [&_h1]:tracking-[-.045em] max-[760px]:h-[88svh] max-[760px]:min-h-[760px] max-[760px]:[&_h1]:text-[clamp(4rem,12vw,6.5rem)] max-[560px]:min-h-[760px] max-[560px]:[&_h1]:text-[clamp(3.55rem,13vw,5rem)] max-[390px]:[&_h1]:text-[3.45rem]" style={{ backgroundImage: `url(${img.hero})` }}>
           <video
             autoPlay
             loop
@@ -281,17 +268,19 @@ export default function Home() {
               purpose, and every space tells a story.
             </p>
             <div className="mt-[34px] flex flex-wrap items-center gap-3 max-[560px]:flex-col max-[560px]:items-stretch">
+              
               <a
-                className="group inline-flex min-h-[56px] items-center justify-between gap-8 rounded-[15px] border border-white/20 bg-orange py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white shadow-[0_10px_24px_rgba(0,0,0,.16)] transition-[background-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-0.5 hover:bg-[#cf6408] hover:shadow-[0_14px_28px_rgba(0,0,0,.2)] motion-reduce:transform-none motion-reduce:transition-none"
+                className="group relative isolate inline-flex min-h-[56px] min-w-[170px] max-w-full items-center justify-between gap-8 overflow-hidden rounded-[15px] bg-gradient-to-r from-pastel via-[#f5a448] to-orange py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white [box-shadow:0_8px_24px_rgba(240,123,17,0.3)] transition-[color,transform,box-shadow] duration-300 ease-out hover:scale-105 hover:[box-shadow:0_12px_28px_rgba(240,123,17,0.4)] active:scale-95 focus-visible:!outline-none focus-visible:ring-2 focus-visible:ring-pastel focus-visible:ring-offset-2 focus-visible:ring-offset-ink motion-reduce:transform-none motion-reduce:transition-none"
                 href="#projects"
               >
+                <span aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-orange via-[#f5a448] to-pastel opacity-0 transition-opacity duration-300 group-hover:opacity-100 motion-reduce:transition-none" />
                 <span>Explore our work</span>
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] bg-white/15 transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-white/25 motion-reduce:transform-none motion-reduce:transition-none">
+                <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-[15px] bg-white/15 transition-[background-color,transform] duration-300 group-hover:translate-x-0.5 group-hover:bg-white/25 motion-reduce:transform-none motion-reduce:transition-none">
                   <ArrowUpRight size={18} strokeWidth={1.7} />
                 </span>
               </a>
               <a
-                className="group inline-flex min-h-[56px] items-center justify-between gap-8 rounded-[15px] border border-white/65 bg-black/10 py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white backdrop-blur-sm transition-[background-color,border-color,transform] duration-300 ease-out hover:-translate-y-0.5 hover:border-white hover:bg-white/15 motion-reduce:transform-none motion-reduce:transition-none"
+                className="group inline-flex min-h-[56px] items-center justify-between gap-8 rounded-[15px] border border-white/65 bg-black/10 py-2 pl-5 pr-2 text-[11px] font-bold uppercase tracking-[.12em] text-white [box-shadow:0_8px_24px_rgba(240,123,17,0.3)] backdrop-blur-sm transition-[background-color,border-color,transform,box-shadow] duration-300 ease-out hover:scale-105 hover:border-white hover:bg-white/15 hover:[box-shadow:0_12px_28px_rgba(240,123,17,0.4)] active:scale-95 motion-reduce:transform-none motion-reduce:transition-none"
                 href="#studio"
               >
                 <span>Discover the studio</span>
@@ -340,19 +329,19 @@ export default function Home() {
                 to every detail.
               </p>
               <More href="#services">Our approach</More>
-              <div className="mt-[72px] flex gap-[65px] max-[760px]:mt-[45px] max-[560px]:gap-[35px] [&>div]:flex [&>div]:flex-col [&>div]:gap-2 [&_strong]:font-display [&_strong]:text-[3.6rem] [&_strong]:leading-[.9] [&_strong]:font-normal max-[560px]:[&_strong]:text-[2.8rem] [&_span]:text-[10px] [&_span]:tracking-[.12em] [&_span]:text-muted">
+              <div className="mt-[72px] flex gap-[65px] max-[760px]:mt-[45px] max-[560px]:gap-[35px] [&>div]:flex [&>div]:flex-col [&>div]:gap-2 [&_strong]:font-display [&_strong]:text-[3.6rem] [&_strong]:leading-[.9] [&_strong]:font-normal max-[560px]:[&_strong]:text-[2.8rem] [&_span]:text-[10px] [&_span]:tracking-[.12em] [&_span]:text-muted [&_span]:font-normal max-[560px]:[&_span]:text-[9px]">
                 <div>
-                  <strong>01</strong>
+                  <strong><em>01</em></strong>
                   <span>ONE VISION, YOURS</span>
                 </div>
                 <div>
-                  <strong>360°</strong>
+                  <strong><em>360°</em></strong>
                   <span>THOUGHTFUL DESIGN</span>
                 </div>
               </div>
             </Reveal>
             <Reveal className="relative pb-[22px] pl-6 max-[760px]:max-w-[590px] max-[560px]:pl-3">
-              <div className="relative h-[620px] max-[1050px]:h-[520px] max-[560px]:h-[400px]">
+              <div className="relative h-[620px] rounded-[15px] [box-shadow:rgba(50,50,93,0.25)_0px_13px_27px_-5px,rgba(0,0,0,0.3)_0px_8px_16px_-8px] max-[1050px]:h-[520px] max-[560px]:h-[400px]">
                 <Image
                   src={img.studio}
                   alt="Refined neutral interior with layered materials"
@@ -362,10 +351,7 @@ export default function Home() {
                   unoptimized
                 />
               </div>
-              <div className="mt-[15px] flex justify-between text-[9px] tracking-[.16em] text-muted">
-                <span>DESIGNED TO BE LIVED IN</span>
-                <span>EST. WITH INTENTION</span>
-              </div>
+              
               
             </Reveal>
           </div>
@@ -426,7 +412,7 @@ export default function Home() {
                     setSlide(0);
                   }}
                 >
-                  <span className="relative block aspect-[1.28] rounded-[15px] overflow-hidden bg-[#d7c8b6] max-[560px]:aspect-[1.15]">
+                  <span className="relative block aspect-[1.28] rounded-[15px] [box-shadow:rgba(50,50,93,0.25)_0px_13px_27px_-5px,rgba(0,0,0,0.3)_0px_8px_16px_-8px] overflow-hidden bg-[#d7c8b6] max-[560px]:aspect-[1.15]">
                     <Image
                       src={p.image}
                       alt={p.title + " interior"}
@@ -466,7 +452,7 @@ export default function Home() {
         </section>
 
         <section
-          className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-aura-white"
+          className="hidden scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-aura-white"
           id="services"
         >
           <div className="mx-auto w-[calc(100%-88px)] max-w-[1360px] max-[1050px]:w-[calc(100%-64px)] max-[760px]:w-[calc(100%-40px)] grid grid-cols-[.86fr_1.14fr] gap-[10%] max-[1050px]:gap-[6%] max-[760px]:grid-cols-1 max-[760px]:gap-[50px] [&>div:first-child]:sticky [&>div:first-child]:top-10 [&>div:first-child]:self-start max-[760px]:[&>div:first-child]:static">
@@ -500,79 +486,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-ivory">
-          <div className="mx-auto w-[calc(100%-88px)] max-w-[1360px] max-[1050px]:w-[calc(100%-64px)] max-[760px]:w-[calc(100%-40px)]">
-            <Reveal className="flex items-end justify-between gap-10 max-[760px]:flex-col max-[760px]:items-start max-[760px]:gap-0 [&>p:last-child]:mb-8 [&>p:last-child]:max-w-[300px] [&>p:last-child]:text-[15px] [&>p:last-child]:leading-[1.8] [&>p:last-child]:text-muted max-[760px]:[&>p:last-child]:mb-[30px]">
-              <div>
-                <Label>THE AURA DIFFERENCE</Label>
-                <h2 className="mt-[23px] mb-[30px] font-display text-[clamp(3.1rem,5.2vw,6.1rem)] leading-[1.08] font-normal tracking-[-.045em] max-[560px]:text-[clamp(3rem,11vw,4.3rem)]">
-                  The art of <em>attention.</em>
-                </h2>
-              </div>
-              <p>Good design is felt in the moments that matter most.</p>
-            </Reveal>
-            <div className="mt-[25px] grid grid-cols-4 gap-4 max-[1050px]:grid-cols-2 max-[560px]:gap-[10px] max-[390px]:grid-cols-1">
-              {reasons.map(([title, copy], i) => (
-                <Reveal
-                  className="flex min-h-[275px] flex-col border rounded-[15px] border-[#cfc1af] px-[23px] pt-[30px] pb-9 max-[560px]:min-h-[250px] max-[560px]:px-[15px] max-[560px]:pt-5 max-[560px]:pb-5 max-[390px]:min-h-0 [&>span]:text-[10px] [&>span]:tracking-[.14em] [&>span]:text-orange [&_h3]:mb-[9px] [&_h3]:font-display [&_h3]:text-[1.5rem] [&_h3]:font-normal max-[560px]:[&_h3]:text-[1.3rem] [&_p]:text-xs [&_p]:leading-[1.65] [&_p]:text-muted max-[560px]:[&_p]:text-[11px]"
-                  key={title}
-                >
-                  <span>{String(i + 1).padStart(2, "0")} / 04</span>
-                  <div className="mt-[33px] mb-[19px] grid h-[45px] w-[45px] place-items-center rounded-full border border-orange text-orange">
-                    <Check size={21} strokeWidth={1.4} />
-                  </div>
-                  <h3>{title}</h3>
-                  <p>{copy}</p>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        <WhatWeDo>
+          <Label>WHAT WE DO</Label>
+          <h2 id="what-we-do-heading" className="mt-[23px] mb-[30px] font-display text-[clamp(3.1rem,5.2vw,6.1rem)] leading-[1.08] font-normal tracking-[-.045em] max-[560px]:text-[clamp(3rem,11vw,4.3rem)]">
+            Services made<br />for <em>living well.</em>
+          </h2>
+          <p className="mb-8 max-w-[530px] text-[15px] leading-[1.9] text-muted">
+            From a single room to an entire property, our team brings a
+            complete design perspective to every scale of project.
+          </p>
+          <More href="#consultation">Start a conversation</More>
+        </WhatWeDo>
 
-        <section
-          className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-aura-white"
-          id="process"
-        >
-          <div className="mx-auto w-[calc(100%-88px)] max-w-[1360px] max-[1050px]:w-[calc(100%-64px)] max-[760px]:w-[calc(100%-40px)] grid grid-cols-2 gap-[12%] max-[1050px]:gap-[6%] max-[760px]:grid-cols-1 max-[760px]:gap-[50px]">
-            <Reveal>
-              <Label>HOW WE WORK</Label>
-              <h2 className="mt-[23px] mb-[30px] font-display text-[clamp(3.1rem,5.2vw,6.1rem)] leading-[1.08] font-normal tracking-[-.045em] max-[560px]:text-[clamp(3rem,11vw,4.3rem)]">
-                A journey from
-                <br />
-                <em>idea to home.</em>
-              </h2>
-              <p className="mb-8 max-w-[530px] text-[15px] leading-[1.9] text-muted">
-                A considered process keeps the experience collaborative, clear,
-                and as enjoyable as the outcome.
-              </p>
-              <div className="relative mt-9 h-[390px]  max-[760px]:h-[320px]">
-                <Image
-                  src={img.detail}
-                  alt="Warm architectural details and interior finishes"
-                  className="rounded-[15px]"
-                  fill
-                  sizes="(max-width: 850px) 100vw, 40vw"
-                  unoptimized
-                />
-              </div>
-            </Reveal>
-            <div className="pt-[52px] max-[760px]:pt-0">
-              {processSteps.map(([title, copy], i) => (
-                <Reveal key={title}>
-                  <div className="grid grid-cols-[80px_1fr] gap-5 border-b border-line pt-6 pb-[30px] [&>span]:font-display [&>span]:text-[2.4rem] [&>span]:font-normal [&>span]:text-orange [&_h3]:mb-2 [&_h3]:font-display [&_h3]:text-[1.85rem] [&_h3]:font-normal [&_p]:text-[13px] [&_p]:leading-[1.7] [&_p]:text-muted">
-                    <span>{String(i + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3>{title}</h3>
-                      <p>{copy}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-ivory">
+              <section className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-ivory">
           <div className="mx-auto w-[calc(100%-88px)] max-w-[1360px] max-[1050px]:w-[calc(100%-64px)] max-[760px]:w-[calc(100%-40px)] grid grid-cols-2 items-center gap-[10%] max-[760px]:grid-cols-1 max-[760px]:gap-[50px]">
             <Reveal>
               <Label>THE PEOPLE BEHIND THE SPACES</Label>
@@ -600,6 +526,52 @@ export default function Home() {
             </Reveal>
           </div>
         </section>
+       
+
+        <section
+          className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-aura-white"
+          id="process"
+        >
+          <div className="mx-auto w-[calc(100%-88px)] max-w-[1360px] max-[1050px]:w-[calc(100%-64px)] max-[760px]:w-[calc(100%-40px)] grid grid-cols-2 gap-[12%] max-[1050px]:gap-[6%] max-[760px]:grid-cols-1 max-[760px]:gap-[50px]">
+            <Reveal>
+              <Label>HOW WE WORK</Label>
+              <h2 className="mt-[23px] mb-[30px] font-display text-[clamp(3.1rem,5.2vw,6.1rem)] leading-[1.08] font-normal tracking-[-.045em] max-[560px]:text-[clamp(3rem,11vw,4.3rem)]">
+                A journey from
+                <br />
+                <em>idea to home.</em>
+              </h2>
+              <p className="mb-8 max-w-[530px] text-[15px] leading-[1.9] text-muted">
+                A considered process keeps the experience collaborative, clear,
+                and as enjoyable as the outcome.
+              </p>
+              <div className="relative mt-9 h-[390px] rounded-[15px] [box-shadow:rgba(50,50,93,0.25)_0px_13px_27px_-5px,rgba(0,0,0,0.3)_0px_8px_16px_-8px] max-[760px]:h-[320px]">
+                <Image
+                  src={img.detail}
+                  alt="Warm architectural details and interior finishes"
+                  className="rounded-[15px]"
+                  fill
+                  sizes="(max-width: 850px) 100vw, 40vw"
+                  unoptimized
+                />
+              </div>
+            </Reveal>
+            <div className="pt-[52px] max-[760px]:pt-0">
+              {processSteps.map(([title, copy], i) => (
+                <Reveal key={title}>
+                  <div className="grid grid-cols-[80px_1fr] gap-5 border-b border-line pt-6 pb-[30px] [&>span]:font-display [&>span]:text-[2.4rem] [&>span]:font-normal [&>span]:text-orange [&_h3]:mb-2 [&_h3]:font-display [&_h3]:text-[1.85rem] [&_h3]:font-normal [&_p]:text-[13px] [&_p]:leading-[1.7] [&_p]:text-muted">
+                    <span>{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3>{title}</h3>
+                      <p>{copy}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        
 
         <section
           className="scroll-mt-[76px] py-[130px] max-[760px]:py-20 bg-[#342f2a] text-ivory"
@@ -875,7 +847,7 @@ export default function Home() {
               >
                 <X />
               </button>
-              <div className="relative h-[min(64vh,650px)] max-[560px]:h-[52vh]">
+              <div className="relative h-[min(64vh,650px)] [box-shadow:rgba(50,50,93,0.25)_0px_13px_27px_-5px,rgba(0,0,0,0.3)_0px_8px_16px_-8px] max-[560px]:h-[52vh]">
                 <Image
                   src={projects[selected].gallery[slide]}
                   alt={projects[selected].title + " image " + (slide + 1)}
